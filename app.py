@@ -4,7 +4,7 @@ app = Flask(__name__)
 app.config["SECRET_KEY"] = "IniSecretKeyKu2020"
 
 #buat route untuk halaman index
-@app.route("/", methods=["POST", "GET"])
+@app.route("/", methods=["POST", "GET"]) #memberikan hak akses untuk method POST dan GET
 def index():
     if "email" in session: #jika sudah login bisa akses halaman home 
         return redirect (url_for('suksesku'))
