@@ -6,11 +6,14 @@ app.config["SECRET_KEY"] = "IniSecretKeyKu2020"
 #buat route untuk halaman index
 @app.route("/", methods=["POST", "GET"])
 def index():
+    if "email" in session: #jika sudah login bisa akses halaman home 
+        redirect (url_for('suksesku'))
+    
     #jika button di klik >> akan terjadi request POST
     if request.method == 'POST' :
         email = request.form['email']   #jika pada form dimasukan email (name=email ada di index.html) maka data ditampung di vaiabel email
         password = request.form['password'] #jika pada form dimasukan password (name=password ada di index) maka data ditampung di variabel password
-       
+    
         #jika email dan password benar maka dialihkan ke halaman sukses
         if email == 'admin@gmail.com' and password == 'pass' :
             session['email'] = email
@@ -31,12 +34,25 @@ def suksesku():
 #buat route untuk halaman about
 @app.route ("/about")
 def about():
-    return render_template ("about.html")
+    if "email" in session:  #menambahkan autorisasi user yang sudah login untuk bisa akses about
+        return render_template ("about.html")
+    else:
+        return redirect (url_for('index')) #jika user belum login akan di redirect ke index
 
 #buat route untuk halaman contact
 @app.route ("/contact")
 def contact():
-    return render_template("contact.html")
+    if "email" in session:  #menambahkan autorisasi user yang sudah login untuk bisa akses about
+        return render_template("contact.html")
+    else:
+        return redirect (url_for('index'))  #jika user belum login akan di redirect ke index
+
+#menambahkan fungsi logout
+#@app.route ("/logout")
+#def logout_session():
+ #   session.pop ("email")
+  #  return redirect (url_for('index'))
+
 
 #menambahkan halaman redirect
 @app.route ("/redirect")
