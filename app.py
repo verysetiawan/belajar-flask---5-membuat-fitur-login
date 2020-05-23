@@ -50,8 +50,11 @@ def contact():
 #menambahkan fungsi logout
 @app.route ("/logout")
 def logout_session():
-    session.pop ("email")
-    return redirect (url_for('index'))
+    if "email" in session : #jika login dengan email maka jika terdapat sesion email akan dihapus dan diredirect ke index
+        session.pop ("email")
+        return redirect (url_for('index'))
+    else:    #jika belum login maka di redirect ke index
+        return redirect (url_for('index'))
 
 
 #menambahkan halaman redirect
