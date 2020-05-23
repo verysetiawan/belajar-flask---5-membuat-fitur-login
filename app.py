@@ -7,7 +7,7 @@ app.config["SECRET_KEY"] = "IniSecretKeyKu2020"
 @app.route("/", methods=["POST", "GET"])
 def index():
     if "email" in session: #jika sudah login bisa akses halaman home 
-        redirect (url_for('suksesku'))
+        return redirect (url_for('suksesku'))
     
     #jika button di klik >> akan terjadi request POST
     if request.method == 'POST' :
@@ -48,10 +48,10 @@ def contact():
         return redirect (url_for('index'))  #jika user belum login akan di redirect ke index
 
 #menambahkan fungsi logout
-#@app.route ("/logout")
-#def logout_session():
- #   session.pop ("email")
-  #  return redirect (url_for('index'))
+@app.route ("/logout")
+def logout_session():
+    session.pop ("email")
+    return redirect (url_for('index'))
 
 
 #menambahkan halaman redirect
